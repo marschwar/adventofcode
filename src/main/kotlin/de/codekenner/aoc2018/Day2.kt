@@ -18,8 +18,9 @@ class Day2 : Puzzle() {
     }
 
     override fun part2(input: Sequence<String>): Any {
-        val result = input.mapIndexed { index, s ->
-            input.drop(index + 1).map { Stats(s, it) }.sortedBy { it.difference }
+        val inList = input.toList()
+        val result = inList.mapIndexed { index, s ->
+            inList.drop(index + 1).map { Stats(s, it) }.sortedBy { it.difference }
         }.map {
             it.firstOrNull()
         }
