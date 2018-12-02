@@ -32,7 +32,7 @@ class Day2 : Puzzle() {
 
     private data class Stats(val box: String, val other: String) {
         val difference: Int by lazy {
-            box.mapIndexed { index, c -> if (c == other[index]) 0 else 1 }.sum()
+            box.zip(other).count { it.first == it.second }
         }
     }
 }
