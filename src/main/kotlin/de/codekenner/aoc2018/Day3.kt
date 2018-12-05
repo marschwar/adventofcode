@@ -7,8 +7,7 @@ class Day3 : Puzzle() {
             .flatMap { it.fabricPositions.asSequence() }
             .groupingBy { it }
             .eachCount()
-            .filter { it.value > 1 }
-            .size
+            .count { it.value > 1 }
     }
 
     override fun part2(input: Sequence<String>): Any {
