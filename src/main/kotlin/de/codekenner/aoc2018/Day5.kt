@@ -9,9 +9,9 @@ class Day5 : Puzzle() {
         val origInput = input.first().toList()
         val units = origInput.map(Char::toLowerCase).distinct()
         val candidates = units.map { unit ->
-            unit to origInput.filterNot { it.toLowerCase() == unit }.implode()
+            origInput.filterNot { it.toLowerCase() == unit }.implode()
         }
-        return candidates.map { it.second.size }.min() ?: 0
+        return candidates.map { it.size }.min() ?: 0
     }
 }
 

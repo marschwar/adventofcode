@@ -14,9 +14,8 @@ class Day3 : Puzzle() {
         val claims = input.map { Claim.of(it) }.toList()
         return claims.filterNot { it.intersects(claims) }.first().number
     }
-}
 
-private typealias Point = Pair<Int, Int>
+}
 
 private class Claim(val number: Int, left: Int, top: Int, width: Int, height: Int) {
     val fabricPositions: Set<Point> = (left..(left + width - 1)).flatMap { x ->
