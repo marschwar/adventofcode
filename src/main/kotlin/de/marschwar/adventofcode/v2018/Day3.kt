@@ -1,4 +1,6 @@
-package de.codekenner.aoc2018
+package de.marschwar.adventofcode.v2018
+
+import de.marschwar.adventofcode.Puzzle
 
 class Day3 : Puzzle() {
     override fun part1(input: Sequence<String>): Any {

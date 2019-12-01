@@ -1,5 +1,6 @@
-package de.codekenner.aoc2018
+package de.marschwar.adventofcode.v2018
 
+import de.marschwar.adventofcode.Puzzle
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min

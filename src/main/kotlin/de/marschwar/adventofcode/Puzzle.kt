@@ -1,6 +1,5 @@
-package de.codekenner.aoc2018
+package de.marschwar.adventofcode
 
-import kotlin.system.measureNanoTime
 import kotlin.system.measureTimeMillis
 
 abstract class Puzzle {

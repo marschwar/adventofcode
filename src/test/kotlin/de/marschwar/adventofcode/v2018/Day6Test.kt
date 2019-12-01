@@ -1,8 +1,7 @@
-package de.codekenner.aoc2018
+package de.marschwar.adventofcode.v2018
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
-import kotlin.math.absoluteValue
 
 internal class Day6Test : StringSpec({
     val input = sequenceOf("1, 1", "1, 6", "8, 3", "3, 4", "5, 5", "8, 9")

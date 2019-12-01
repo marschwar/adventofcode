@@ -1,4 +1,4 @@
-package de.codekenner.aoc2018
+package de.marschwar.adventofcode.v2018
 
 import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
