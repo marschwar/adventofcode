@@ -3,13 +3,24 @@ package de.marschwar.adventofcode
 import kotlin.system.measureTimeMillis
 
 abstract class Puzzle {
-    fun solve() {
+
+    private val input: Sequence<String>
+
+    init {
+        input = readInput()
+    }
+
+    private fun readInput(): Sequence<String> {
         val clazz = this.javaClass
-        val rawInput = clazz.getResource("/input/${clazz.simpleName}.txt").readText()
-        val input = rawInput
+        val year = clazz.packageName.split(".").last()
+        val rawInput = clazz.getResource("/input/$year/${clazz.simpleName}.txt").readText()
+        return rawInput
             .lineSequence()
             .map(String::trim)
             .filterNot(String::isEmpty)
+    }
+
+    fun solve() {
         val duration1 = measureTimeMillis { println("Part 1: ${part1(input)}") }
         println("It took ${duration1}ms")
         val duration2 = measureTimeMillis { println("Part 2: ${part2(input)}") }
