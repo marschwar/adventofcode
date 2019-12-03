@@ -1,5 +1,6 @@
 package de.marschwar.adventofcode.v2018
 
+import de.marschwar.adventofcode.Point
 import de.marschwar.adventofcode.Puzzle
 
 class Day3 : Puzzle() {
