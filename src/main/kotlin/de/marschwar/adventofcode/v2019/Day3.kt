@@ -11,14 +11,10 @@ import kotlin.math.absoluteValue
 class Day3() : Puzzle() {
 
     override fun part1(input: Sequence<String>): Any {
-        return input
-            .map { it.asDirections() }
-            .map { instructions ->
-                instructions.fold(mutableListOf(Point(0, 0))) { trail, instruction ->
-                    trail.walk(instruction.first, instruction.second)
-                }
-            }
-            .fold(setOf<Point>()) { acc, trail -> if (acc.isEmpty()) trail.toSet() else acc.intersect(trail) }
+        val trails = convertToTrailsSequence(input)
+        val crossings = findCrossings(trails)
+
+        return crossings
             .map { it.distance() }
             .sorted()
             .drop(1)
@@ -26,7 +22,35 @@ class Day3() : Puzzle() {
     }
 
     override fun part2(input: Sequence<String>): Any {
-        return "no result"
+        val trails: List<List<Point>> = convertToTrailsSequence(input)
+        val crossings: List<Point> = findCrossings(trails)
+
+        return crossings
+            .map { point ->
+                trails.sumBy { trail ->
+                    trail.indexOf(point)
+                }
+            }
+            .sorted()
+            .drop(1)
+            .first()
+    }
+
+    private fun findCrossings(trails: List<List<Point>>): List<Point> {
+        return trails
+            .fold(setOf<Point>()) { acc, trail -> if (acc.isEmpty()) trail.toSet() else acc.intersect(trail) }
+            .toList()
+    }
+
+    private fun convertToTrailsSequence(input: Sequence<String>): List<List<Point>> {
+        return input
+            .map { it.asDirections() }
+            .map { instructions ->
+                instructions.fold(mutableListOf(Point(0, 0))) { trail, instruction ->
+                    trail.walk(instruction.first, instruction.second)
+                }
+            }
+            .toList()
     }
 
     private fun Point.distance() = first.absoluteValue + second.absoluteValue
