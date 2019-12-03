@@ -11,7 +11,7 @@ import kotlin.math.absoluteValue
 class Day3() : Puzzle() {
 
     override fun part1(input: Sequence<String>): Any {
-        val trails = convertToTrailsSequence(input)
+        val trails = convertToTrails(input)
         val crossings = findCrossings(trails)
 
         return crossings
@@ -22,7 +22,7 @@ class Day3() : Puzzle() {
     }
 
     override fun part2(input: Sequence<String>): Any {
-        val trails: List<List<Point>> = convertToTrailsSequence(input)
+        val trails: List<List<Point>> = convertToTrails(input)
         val crossings: List<Point> = findCrossings(trails)
 
         return crossings
@@ -42,7 +42,7 @@ class Day3() : Puzzle() {
             .toList()
     }
 
-    private fun convertToTrailsSequence(input: Sequence<String>): List<List<Point>> {
+    private fun convertToTrails(input: Sequence<String>): List<List<Point>> {
         return input
             .map { it.asDirections() }
             .map { instructions ->
