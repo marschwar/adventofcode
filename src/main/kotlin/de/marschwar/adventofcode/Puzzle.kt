@@ -4,13 +4,13 @@ import kotlin.system.measureTimeMillis
 
 abstract class Puzzle {
 
-    private val input: Sequence<String>
+    private val input: PuzzleInput
 
     init {
         input = readInput()
     }
 
-    private fun readInput(): Sequence<String> {
+    private fun readInput(): PuzzleInput {
         val clazz = this.javaClass
         val year = clazz.packageName.split(".").last()
         val rawInput = clazz.getResource("/input/$year/${clazz.simpleName}.txt").readText()
@@ -27,8 +27,8 @@ abstract class Puzzle {
         println("It took ${duration2}ms")
     }
 
-    abstract fun part1(input: Sequence<String>): Any
+    abstract fun part1(input: PuzzleInput): Any
 
-    abstract fun part2(input: Sequence<String>): Any
+    abstract fun part2(input: PuzzleInput): Any
 
 }
