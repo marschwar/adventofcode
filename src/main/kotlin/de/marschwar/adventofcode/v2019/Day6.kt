@@ -9,6 +9,7 @@ class Day6 : Puzzle() {
         val graph = input
             .toOrbitInfoSequence()
             .toGraph("COM")
+
         graph.visit { planet, parents -> planet.orbitingPlanets = parents }
         return graph.sumBy { it.orbitingPlanets.count() }
     }
