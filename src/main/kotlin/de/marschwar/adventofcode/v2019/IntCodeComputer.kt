@@ -6,15 +6,21 @@ class IntCodeComputer(input: String) {
         .map(String::toInt)
         .toList()
 
-    fun run(inputSetting: Int): Int {
-        return program.toMutableList().doRun(inputSetting) ?: throw IllegalStateException("no result")
+    fun run(vararg inputs: Int): Int {
+        return program.toMutableList().doRun(NeverEndingStack(inputs.toTypedArray()))
     }
 
-    private tailrec fun MutableList<Int>.doRun(inputSetting: Int, currentIndex: Int = 0, output: Int? = null): Int? {
+    private tailrec fun MutableList<Int>.doRun(
+        inouts: NeverEndingStack<Int>,
+        currentIndex: Int = 0,
+        output: Int = 0
+    ): Int {
         val instruction = get(currentIndex)
         if (instruction == 99) {
             return output
         }
+
+        var newOutput = output
         val opCode = OpCode.from(instruction % 100)
 
         val modes = (instruction / 100).toString().padStart(4, '0')
@@ -30,12 +36,11 @@ class IntCodeComputer(input: String) {
                 secondParam
 
         val targetIndex = get(currentIndex + 3)
-        var newOutput: Int? = null
 
         when (opCode) {
             OpCode.ADD -> set(targetIndex, firstParamValue + secondParamValue)
             OpCode.MULTIPLY -> set(targetIndex, firstParamValue * secondParamValue)
-            OpCode.SET -> set(firstParam, inputSetting)
+            OpCode.SET -> set(firstParam, inouts.get())
             OpCode.PRINT -> newOutput = firstParamValue
             OpCode.LESS_THAN -> set(targetIndex, if (firstParamValue < secondParamValue) 1 else 0)
             OpCode.EQUAL -> set(targetIndex, if (firstParamValue == secondParamValue) 1 else 0)
@@ -59,7 +64,7 @@ class IntCodeComputer(input: String) {
             OpCode.JUMP_IF_FALSE -> if (firstParamValue == 0) secondParamValue else currentIndex + 3
         }
 
-        return doRun(inputSetting = inputSetting, currentIndex = newIndex, output = newOutput ?: output)
+        return doRun(inouts = inouts, currentIndex = newIndex, output = newOutput)
     }
 
     private enum class OpCode(val value: Int, val supportsMultipleParameters: Boolean = true) {
@@ -76,6 +81,14 @@ class IntCodeComputer(input: String) {
         companion object {
             fun from(value: Int): OpCode =
                 values().find { it.value == value } ?: throw IllegalArgumentException()
+        }
+    }
+
+    private class NeverEndingStack<T>(items: Array<T>) {
+        val items: MutableList<T> = items.toMutableList()
+
+        fun get(): T {
+            return if (items.size == 1) items.get(0) else items.removeAt(0)
         }
     }
 
