@@ -16,7 +16,13 @@ class Day7() : Puzzle() {
     }
 
     override fun part2(input: PuzzleInput): Any {
-        return IntCodeComputer(input.first()).run(1)
+        val computer = IntCodeComputer(input.first())
+
+        return (5..9).permutate()
+            .map { systemInputs ->
+                systemInputs.fold(0) { acc, phase -> computer.run(phase, acc) }
+            }
+            .max() ?: throw IllegalStateException("No permutations")
     }
 
     private fun IntRange.permutate() = toList().permutate()
