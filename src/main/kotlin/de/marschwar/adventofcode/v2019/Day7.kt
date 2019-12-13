@@ -8,9 +8,9 @@ class Day7() : Puzzle() {
     override fun part1(input: PuzzleInput): Any {
         val computer = IntCodeComputer(input.first())
 
-        return (0..4).permutate()
-            .map { systemInputs ->
-                systemInputs.fold(0) { acc, phase -> computer.run(phase, acc) }
+        return (0L..4L).permutate()
+            .map { systemInputs: List<Long> ->
+                systemInputs.fold(0L) { acc, phase -> computer.run(phase, acc) }
             }
             .max() ?: throw IllegalStateException("No permutations")
     }
@@ -18,14 +18,14 @@ class Day7() : Puzzle() {
     override fun part2(input: PuzzleInput): Any {
         val computer = IntCodeComputer(input.first())
 
-        return (5..9).permutate()
+        return (5L..9L).permutate()
             .map { systemInputs ->
-                systemInputs.fold(0) { acc, phase -> computer.run(phase, acc) }
+                systemInputs.fold(0L) { acc, phase -> computer.run(phase, acc) }
             }
             .max() ?: throw IllegalStateException("No permutations")
     }
 
-    private fun IntRange.permutate() = toList().permutate()
+    private fun LongRange.permutate() = toList().permutate()
 
     private fun <T> List<T>.permutate(): List<List<T>> {
         if (size == 1) return listOf(this)

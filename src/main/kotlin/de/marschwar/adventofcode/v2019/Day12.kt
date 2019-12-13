@@ -85,7 +85,7 @@ class Day12(private val steps: Int = 1000) : Puzzle() {
         }
     }
 
-    fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
+    tailrec fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
     fun lcm(a: Long, b: Long): Long = a / gcd(a, b) * b
 
     private data class Moon(val position: Vector, val velocity: Vector = Vector())
