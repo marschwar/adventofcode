@@ -1,28 +1,44 @@
 package de.marschwar.adventofcode.v2019
 
-class IntCodeComputer(input: String) {
+import java.util.function.Consumer
+import java.util.function.Supplier
+
+class IntCodeComputer(input: String, private val outputListener: (Long) -> Unit = debugListener) {
     private val program: Map<Long, Long> = input
         .split(",")
         .mapIndexed { index, s -> index.toLong() to s.toLong() }
         .toMap()
 
     fun run(vararg inputs: Long): Long {
-        return program.toMutableMap().doRun(NeverEndingStack(inputs.toTypedArray()))
+        var result = 0L
+        program.toMutableMap().doRun(
+            inputs = NeverEndingStack(inputs.toTypedArray()),
+            output = Consumer { value -> result = value }
+        )
+        return result
+    }
+
+    fun run(supplier: Supplier<Long>, consumer: Consumer<Long>): Map<Long, Long> {
+        return run(program, supplier, consumer)
+    }
+
+    fun run(theProgram: Map<Long, Long>, supplier: Supplier<Long>, consumer: Consumer<Long>): Map<Long, Long> {
+        val mutableProgram = theProgram.toMutableMap()
+        mutableProgram.doRun(inputs = supplier, output = consumer)
+        return mutableProgram
     }
 
     private tailrec fun MutableMap<Long, Long>.doRun(
-        inputs: NeverEndingStack<Long>,
+        inputs: Supplier<Long>,
         idx: Long = 0,
         rel: Long = 0,
-        output: Long = 0
-    ): Long {
+        output: Consumer<Long>
+    ) {
 
         val instruction = getValue(idx)
         if (instruction == 99L) {
-            println()
-            return output
+            return
         }
-        var nextOutput = output
         var nextRelativeBase = rel
 
         val opCode = OpCode.from(instruction.toInt() % 100)
@@ -43,7 +59,7 @@ class IntCodeComputer(input: String) {
             OpCode.SET ->
                 setValue(modes, idx, 3, rel, inputs.get()).also { nextIndex += 2 }
             OpCode.PRINT -> {
-                nextOutput = firstParamValue
+                output.accept(firstParamValue)
                 nextIndex += 2
             }
             OpCode.ADJUST_RELATIVE_BASE -> {
@@ -63,7 +79,7 @@ class IntCodeComputer(input: String) {
                 nextIndex = if (firstParamValue == 0L) secondParamValue else idx + 3
         }
 
-        return doRun(inputs = inputs, idx = nextIndex, output = nextOutput, rel = nextRelativeBase)
+        return doRun(inputs = inputs, idx = nextIndex, output = output, rel = nextRelativeBase)
     }
 
     private fun MutableMap<Long, Long>.addr(modes: List<Mode>, currentIndex: Long, offset: Int, relativeBase: Long):
@@ -143,15 +159,16 @@ class IntCodeComputer(input: String) {
             }.reversed()
     }
 
-    private class NeverEndingStack<T>(items: Array<T>) {
+    private class NeverEndingStack<T>(items: Array<T>) : Supplier<T> {
         val items: MutableList<T> = items.toMutableList()
 
-        fun get(): T {
+        override fun get(): T {
             return if (items.size == 1) items.get(0) else items.removeAt(0)
         }
     }
 
     companion object {
         private const val DEFAULT_VALUE = 0L
+        private val debugListener: (Long) -> Unit = { print("$it,") }
     }
 }

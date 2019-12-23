@@ -2,6 +2,7 @@ package de.marschwar.adventofcode.v2019
 
 import de.marschwar.adventofcode.Puzzle
 import de.marschwar.adventofcode.PuzzleInput
+import de.marschwar.adventofcode.lcm
 import kotlin.math.abs
 
 class Day12(private val steps: Int = 1000) : Puzzle() {
@@ -84,9 +85,6 @@ class Day12(private val steps: Int = 1000) : Puzzle() {
             else -> error("not happening")
         }
     }
-
-    tailrec fun gcd(a: Long, b: Long): Long = if (b == 0L) a else gcd(b, a % b)
-    fun lcm(a: Long, b: Long): Long = a / gcd(a, b) * b
 
     private data class Moon(val position: Vector, val velocity: Vector = Vector())
 
