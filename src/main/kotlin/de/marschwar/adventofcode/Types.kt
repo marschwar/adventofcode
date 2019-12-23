@@ -3,6 +3,10 @@ package de.marschwar.adventofcode
 typealias PuzzleInput = Sequence<String>
 typealias Point = Pair<Int, Int>
 
+enum class Direction {
+    N, E, S, W
+}
+
 class Stack<T>(items: Array<T>) {
     val items: MutableList<T> = items.toMutableList()
 
