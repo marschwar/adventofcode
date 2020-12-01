@@ -1,14 +1,14 @@
 package de.marschwar.adventofcode.v2018
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.StringSpec
-import io.kotlintest.tables.row
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
 
 class Day1Test : StringSpec({
     val puzzle = Day1()
     "part 1" {
-        forall(
+        forAll(
             row(listOf("+1", "+1", "+1"), 3),
             row(listOf("+1", "+1", "-1"), 1),
             row(listOf("-1", "-2", "-3"), -6)
@@ -17,7 +17,7 @@ class Day1Test : StringSpec({
         }
     }
     "part 2" {
-        forall(
+        forAll(
             row(listOf("+1", "-1"), 0),
             row(listOf("+3", "+3", "+4", "-2", "-4"), 10),
             row(listOf("-6", "+3", "+8", "+5", "-6"), 5),

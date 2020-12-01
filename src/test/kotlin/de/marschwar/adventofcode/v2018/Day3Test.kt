@@ -1,7 +1,7 @@
 package de.marschwar.adventofcode.v2018
 
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
 
 internal class Day3Test : StringSpec({
     val puzzle = Day3()

@@ -1,7 +1,7 @@
 package de.marschwar.adventofcode.v2019
 
 import de.marschwar.adventofcode.Point
-import io.kotlintest.shouldBe
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 
 internal class Day10Test {
