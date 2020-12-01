@@ -12,8 +12,7 @@ abstract class Puzzle {
 
     private fun readInput(): PuzzleInput {
         val clazz = this.javaClass
-        val year = clazz.packageName.split(".").last()
-        val rawInput = clazz.getResource("/input/$year/${clazz.simpleName}.txt").readText()
+        val rawInput = clazz.getResource("/input//${clazz.simpleName}.txt").readText()
         return rawInput
             .lineSequence()
             .map(String::trim)
