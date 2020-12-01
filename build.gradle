@@ -7,7 +7,6 @@ buildscript {
 plugins {
 	id "org.jetbrains.kotlin.jvm" version "1.4.20"
 	id "idea"
-	id 'java'
 }
 
 group 'de.codekenner'
@@ -17,25 +16,33 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
+subprojects {
+	apply plugin: 'kotlin'
 
-	testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiter_version")
-	testImplementation("org.junit.jupiter:junit-jupiter-params:$jupiter_version")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
+	repositories {
+		mavenCentral()
+	}
 
-	testImplementation "io.kotest:kotest-runner-junit5-jvm:$kotest_version"
-	testImplementation "io.kotest:kotest-assertions-core-jvm:$kotest_version"
-}
+	dependencies {
+		implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+		implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
 
-compileKotlin {
-	kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-	kotlinOptions.jvmTarget = "1.8"
-}
+		testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiter_version")
+		testImplementation("org.junit.jupiter:junit-jupiter-params:$jupiter_version")
+		testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
 
-test {
-	useJUnitPlatform()
+		testImplementation "io.kotest:kotest-runner-junit5-jvm:$kotest_version"
+		testImplementation "io.kotest:kotest-assertions-core-jvm:$kotest_version"
+	}
+
+	compileKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+	compileTestKotlin {
+		kotlinOptions.jvmTarget = "1.8"
+	}
+
+	test {
+		useJUnitPlatform()
+	}
 }

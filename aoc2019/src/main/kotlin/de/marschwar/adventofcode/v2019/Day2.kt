@@ -1,5 +1,4 @@
 package de.marschwar.adventofcode.v2019
-
 import de.marschwar.adventofcode.Puzzle
 
 class Day2(private val replace: Boolean = true) : Puzzle() {
