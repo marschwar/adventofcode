@@ -27,8 +27,6 @@ class Day1 : Puzzle() {
         }
         error("no result")
     }
-
 }
-
 
 fun main() = Day1().solve()
