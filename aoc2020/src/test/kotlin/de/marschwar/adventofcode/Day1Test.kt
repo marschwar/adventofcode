@@ -1,6 +1,6 @@
 package de.marschwar.adventofcode
 
-import io.kotest.matchers.shouldBe
+import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
 
 internal class Day1Test {
@@ -20,7 +20,7 @@ internal class Day1Test {
 
         val result = puzzle.part1(inputs.asSequence())
 
-        result shouldBe 514_579
+        assertThat(result).isEqualTo(514_579)
     }
 
     @Test
@@ -36,7 +36,7 @@ internal class Day1Test {
 
         val result = puzzle.part2(inputs.asSequence())
 
-        result shouldBe 241_861_950
+        assertThat(result).isEqualTo(241_861_950)
     }
 
 }

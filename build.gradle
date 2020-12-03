@@ -30,8 +30,6 @@ subprojects {
 		testImplementation("org.junit.jupiter:junit-jupiter-api:$jupiter_version")
 		testImplementation("org.junit.jupiter:junit-jupiter-params:$jupiter_version")
 		testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$jupiter_version")
-
-		testImplementation "io.kotest:kotest-assertions-core-jvm:$kotest_version"
 	}
 
 	compileKotlin {
@@ -43,5 +41,8 @@ subprojects {
 
 	test {
 		useJUnitPlatform()
+		testLogging {
+			events "passed", "skipped", "failed"
+		}
 	}
 }

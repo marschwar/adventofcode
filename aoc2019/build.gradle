@@ -1,3 +1,5 @@
 dependencies {
 	implementation project(':base')
+
+	testImplementation "io.kotest:kotest-assertions-core-jvm:$kotest_version"
 }
