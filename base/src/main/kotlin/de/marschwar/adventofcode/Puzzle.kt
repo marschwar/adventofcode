@@ -2,7 +2,7 @@ package de.marschwar.adventofcode
 
 import kotlin.system.measureTimeMillis
 
-abstract class Puzzle {
+abstract class Puzzle(private val removeEmptyLines: Boolean = true) {
 
     private val input: PuzzleInput
 
@@ -13,10 +13,13 @@ abstract class Puzzle {
     private fun readInput(): PuzzleInput {
         val clazz = this.javaClass
         val rawInput = clazz.getResource("/input//${clazz.simpleName}.txt").readText()
-        return rawInput
+        val sequence = rawInput
             .lineSequence()
             .map(String::trim)
-            .filterNot(String::isEmpty)
+        return if (removeEmptyLines)
+            sequence.filterNot(String::isEmpty)
+        else
+            sequence
     }
 
     fun solve() {
