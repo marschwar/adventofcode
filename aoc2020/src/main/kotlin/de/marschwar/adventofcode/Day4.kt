@@ -1,6 +1,6 @@
 package de.marschwar.adventofcode
 
-class Day4 : Puzzle(removeEmptyLines = false) {
+class Day4 : Puzzle(removeBlankLines = false) {
 
     override fun part1(input: Sequence<String>): Any {
         return parseInput(input).count { it.valid1 }

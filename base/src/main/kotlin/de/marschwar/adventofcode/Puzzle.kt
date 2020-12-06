@@ -2,7 +2,7 @@ package de.marschwar.adventofcode
 
 import kotlin.system.measureTimeMillis
 
-abstract class Puzzle(private val removeEmptyLines: Boolean = true) {
+abstract class Puzzle(private val removeBlankLines: Boolean = true) {
 
     private val input: PuzzleInput
 
@@ -16,7 +16,7 @@ abstract class Puzzle(private val removeEmptyLines: Boolean = true) {
         val sequence = rawInput
             .lineSequence()
             .map(String::trim)
-        return if (removeEmptyLines)
+        return if (removeBlankLines)
             sequence.filterNot(String::isEmpty)
         else
             sequence
