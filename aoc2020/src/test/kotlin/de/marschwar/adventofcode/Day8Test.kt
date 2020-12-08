@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test
 internal class Day8Test {
     val puzzle = Day8()
 
-    @Test
-    fun part1() {
-        val input = """
+    val input = """
             nop +0
             acc +1
             jmp +4
@@ -19,7 +17,10 @@ internal class Day8Test {
             jmp -4
             acc +6
             """.trimIndent()
-            .lineSequence()
+        .lineSequence()
+
+    @Test
+    fun part1() {
 
         val result = puzzle.part1(input)
 
@@ -28,5 +29,9 @@ internal class Day8Test {
 
     @Test
     fun part2() {
+
+        val result = puzzle.part2(input)
+
+        assertEquals(8, result)
     }
 }
