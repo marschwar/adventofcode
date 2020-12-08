@@ -1,6 +1,6 @@
 package de.marschwar.adventofcode
 
-import junit.framework.Assert.assertEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class Day7Test {
