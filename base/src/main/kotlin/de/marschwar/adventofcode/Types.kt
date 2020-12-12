@@ -3,6 +3,8 @@ package de.marschwar.adventofcode
 typealias PuzzleInput = Sequence<String>
 typealias Point = Pair<Int, Int>
 
+data class Position(val x: Int, val y: Int)
+
 enum class Direction {
     N, E, S, W
 }
