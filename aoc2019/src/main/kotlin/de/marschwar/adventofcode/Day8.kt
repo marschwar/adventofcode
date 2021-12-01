@@ -4,7 +4,7 @@ class Day8(private val imageWidth: Int, private val imageHeight: Int) : Puzzle()
     override fun part1(input: PuzzleInput): Any {
         val layerStats: List<Map<Char, List<Char>>> =
             input.first().chunked(imageWidth * imageHeight).map { layer -> layer.groupBy { it } }
-        val layerWithLeastZeros = layerStats.minBy { stat -> stat['0']?.count() ?: 0 }!!
+        val layerWithLeastZeros = layerStats.minByOrNull { stat -> stat['0']?.count() ?: 0 }!!
         return (layerWithLeastZeros['1']?.count() ?: 0) * (layerWithLeastZeros['2']?.count() ?: 0)
     }
 

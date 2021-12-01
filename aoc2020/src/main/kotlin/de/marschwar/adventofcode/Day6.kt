@@ -15,7 +15,7 @@ class Day6 : Puzzle(removeBlankLines = false) {
         }
         result.add(current)
 
-        return result.sumBy { it.size }
+        return result.sumOf { it.size }
     }
 
     override fun part2(input: Sequence<String>): Any {
@@ -35,7 +35,7 @@ class Day6 : Puzzle(removeBlankLines = false) {
         }
         current?.let { result.add(it) }
 
-        return result.sumBy { it.size }
+        return result.sumOf { it.size }
     }
 }
 

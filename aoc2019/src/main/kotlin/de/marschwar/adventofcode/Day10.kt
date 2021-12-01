@@ -8,9 +8,9 @@ class Day10(private val laserPosition: Point = Point(0, 0)) : Puzzle() {
     override fun part1(input: PuzzleInput): Any {
         val asteroids = input.asAsteroids()
 
-        return asteroids.map { current ->
+        return asteroids.maxOfOrNull { current ->
             asteroids.minus(current).count { current.isVisible(it, asteroids) }
-        }.max() ?: 0
+        } ?: 0
     }
 
     override fun part2(input: PuzzleInput): Any {

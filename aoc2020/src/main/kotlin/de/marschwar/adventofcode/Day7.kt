@@ -65,7 +65,7 @@ class Day7 : Puzzle() {
         }
 
         fun sumContent(): Int {
-            return 1 + containing.sumBy { it.count * it.color.sumContent() }
+            return 1 + containing.sumOf { it.count * it.color.sumContent() }
         }
     }
 
