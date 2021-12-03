@@ -1,61 +1,56 @@
 package de.marschwar.adventofcode
 
+import kotlin.math.pow
+
 internal class Day3 : Puzzle() {
 
     override fun part1(input: Sequence<String>): Any {
+        val length = input.elementAt(0).length
         return input
-            .map(this::parsed)
-            .fold(PositionPart1()) { acc, v -> acc.apply(v.first, v.second) }
+            .fold(Collector(length)) { acc, s -> acc.apply(s) }
             .calculateResult()
-
     }
 
     override fun part2(input: Sequence<String>): Any {
-        return input
-            .map(this::parsed)
-            .fold(PositionPart2()) { acc, v -> acc.apply(v.first, v.second) }
-            .calculateResult()
+        TODO()
     }
 
-    private fun parsed(instruction: String): Pair<String, Int> {
-        val (operation, amountAsString) = INSTRUCTION_REGEX.matchEntire(instruction)?.destructured
-            ?: error("no match for $instruction")
-        return operation to amountAsString.toInt()
-    }
+    private class Collector(length: Int) {
+        private var countersOfOnes = FloatArray(length) { 0f }
+        private var total = 0f
 
-    private class PositionPart1(var depth: Int = 0, var horizontal: Int = 0) {
-
-        fun apply(operation: String, amount: Int): PositionPart1 {
-            when (operation) {
-                "up" -> depth -= amount
-                "down" -> depth += amount
-                "forward" -> horizontal += amount
-                else -> error("unknown operation $operation")
+        private val gammaRate: Int
+            get() {
+                val half: Float = total.div(2)
+                return countersOfOnes
+                    .mapIndexed { index, i -> if (i < half) 0 else 2f.pow(countersOfOnes.size - 1 - index).toInt() }
+                    .sum()
             }
-            return this
-        }
-        fun calculateResult(): Int = depth * horizontal
-    }
 
-    private class PositionPart2(var depth: Int = 0, var horizontal: Int = 0, var aim: Int = 0) {
-        fun apply(operation: String, amount: Int): PositionPart2 {
-            when (operation) {
-                "up" -> aim -= amount
-                "down" -> aim += amount
-                "forward" -> {
-                    horizontal += amount
-                    depth += (aim * amount)
-                }
-                else -> error("unknown operation $operation")
+        private val epsilonRate: Int
+            get() {
+                val half: Float = total.div(2)
+                return countersOfOnes
+                    .mapIndexed { index, i -> if (i > half) 0 else 2f.pow(countersOfOnes.size - 1 - index).toInt() }
+                    .sum()
             }
+
+        fun apply(number: String): Collector {
+
+            number.forEachIndexed { index, c -> apply(index, c) }
+            total++
             return this
         }
 
-        fun calculateResult(): Int = depth * horizontal
-    }
+        private fun apply(index: Int, c: Char) {
+            if (c == '1') {
+                countersOfOnes[index] = countersOfOnes[index] + 1
+            }
+        }
 
-    companion object {
-        private val INSTRUCTION_REGEX = """(\w+) (\d+)""".toRegex()
+        fun calculateResult(): Int {
+            return gammaRate * epsilonRate
+        }
     }
 }
 

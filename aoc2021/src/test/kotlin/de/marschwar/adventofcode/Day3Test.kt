@@ -7,12 +7,18 @@ internal class Day3Test {
 
     val puzzle = Day3()
     val inputs = sequenceOf(
-        "forward 5",
-        "down 5",
-        "forward 8",
-        "up 3",
-        "down 8",
-        "forward 2",
+        "00100",
+        "11110",
+        "10110",
+        "10111",
+        "10101",
+        "01111",
+        "00111",
+        "11100",
+        "10000",
+        "11001",
+        "00010",
+        "01010",
     )
 
     @Test
@@ -20,7 +26,7 @@ internal class Day3Test {
 
         val result = puzzle.part1(inputs)
 
-        assertThat(result).isEqualTo(150)
+        assertThat(result).isEqualTo(198)
     }
 
     @Test
