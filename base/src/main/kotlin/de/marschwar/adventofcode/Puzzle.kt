@@ -29,8 +29,11 @@ abstract class Puzzle(private val removeBlankLines: Boolean = true) {
         println("It took ${duration2}ms")
     }
 
-    abstract fun part1(input: PuzzleInput): Any
+    open fun part1(input: PuzzleInput): Any {
+        TODO("Not implemented just yet")
+    }
 
-    abstract fun part2(input: PuzzleInput): Any
-
+    open fun part2(input: PuzzleInput): Any {
+        TODO("Not implemented just yet")
+    }
 }
