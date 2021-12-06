@@ -9,8 +9,23 @@ internal class Day6 : Puzzle() {
             .advance(80)
             .count()
     }
+
     override fun part2(input: PuzzleInput): Any {
-      TODO()
+        val inputByAge = input.flatMap { it.split(",") }
+            .groupBy { it }
+            .map { it.key.toInt() to it.value.count().toLong() }
+            .toMap()
+        var ageCounts = LongArray(9) { inputByAge[it] ?: 0 }
+        repeat(256) {
+            ageCounts = LongArray(9) { idx ->
+                when (idx) {
+                    8 -> ageCounts[0]
+                    6 -> ageCounts[7] + ageCounts[0]
+                    else -> ageCounts[idx + 1]
+                }
+            }
+        }
+        return ageCounts.sum()
     }
 
     @JvmInline
@@ -26,7 +41,6 @@ internal class Day6 : Puzzle() {
         }
         return flatMap { it.tick() }.advance(ticks - 1)
     }
-
 }
 
 fun main() = Day6().solve()
