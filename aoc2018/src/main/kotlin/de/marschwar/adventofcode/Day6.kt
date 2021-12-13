@@ -27,7 +27,7 @@ class Day6(val threashold: Int = 10_000) : Puzzle() {
             }
         }
 
-        val result: Any = finiteDistances.map { it.value.size }.max() ?: 0
+        val result: Any = finiteDistances.map { it.value.size }.maxOf { it }
         return result
     }
 

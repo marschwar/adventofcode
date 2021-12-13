@@ -11,7 +11,7 @@ class Day5 : Puzzle() {
         val candidates = units.map { unit ->
             origInput.filterNot { it.toLowerCase() == unit }.implode()
         }
-        return candidates.map { it.size }.min() ?: 0
+        return candidates.sumOf { it.size }
     }
 }
 
