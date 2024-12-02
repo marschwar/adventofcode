@@ -1,7 +1,7 @@
 package main
 
 import (
-	day1 "2024/day01"
+	current "2024/day02"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -12,10 +12,10 @@ func main() {
 
 	_, sourceFile, _, _ := runtime.Caller(0)
 	sourceDir := filepath.Dir(sourceFile)
-	filePath := filepath.Join(sourceDir, "day01/input.txt")
+	filePath := filepath.Join(sourceDir, "day02/input.txt")
 
 	data, _ := os.ReadFile(filePath)
 	input := string(data)
-	fmt.Printf("Part 1: %d", day1.SolvePart1(input))
-	fmt.Printf("Part 2: %d", day1.SolvePart2(input))
+	fmt.Printf("Part 1: %d\n", current.SolvePart1(input))
+	fmt.Printf("Part 2: %d\n", current.SolvePart2(input))
 }
