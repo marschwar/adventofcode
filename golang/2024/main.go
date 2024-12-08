@@ -1,7 +1,7 @@
 package main
 
 import (
-	current "2024/day05"
+	current "2024/day06"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -12,7 +12,7 @@ func main() {
 
 	_, sourceFile, _, _ := runtime.Caller(0)
 	sourceDir := filepath.Dir(sourceFile)
-	filePath := filepath.Join(sourceDir, "day05/input.txt")
+	filePath := filepath.Join(sourceDir, "day06/input.txt")
 
 	data, _ := os.ReadFile(filePath)
 	input := string(data)
